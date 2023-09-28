@@ -29,15 +29,15 @@ try {
     $expenses[] = new FoodExpense(54.99, 'Marcel a avancé la côte de boeuf de Robert', new DateTime('15 june 2021'), $marcel, [$robert]);
 
 
-    echo(GREEN_TEXT . "Liste des dépenses" . PHP_EOL);
-    echo(GREEN_TEXT . "==================" . PHP_EOL);
+    echo (GREEN_TEXT . "Liste des dépenses" . PHP_EOL);
+    echo (GREEN_TEXT . "==================" . PHP_EOL);
 
     foreach ($users as $user) {
         $balances[$user->getFullname()] = 0;
     }
 
     foreach ($expenses as $expense) {
-        echo(sprintf(
+        echo (sprintf(
             "%s - %s %s a payé %s€ (%s€ par participant) (%s)",
             $expense->getType() === 'TYPE_FOOD' ? "\u{1F37D} " : "\u{1F37A}",
             $expense->getPayer()->getFirstname(),
@@ -45,22 +45,21 @@ try {
             $expense->getAmount(),
             $expense->getUnitaryShared(),
             $expense->getDescription()
-        ).PHP_EOL);
+        ) . PHP_EOL);
 
         foreach ($users as $user) {
             $balances[$user->getFullname()] += $expense->getUserShare($user);
         }
     }
 
-    echo(GREEN_TEXT . "Liste des Soldes de chaque utilisateur" . PHP_EOL);
-    echo(GREEN_TEXT . "======================================" . PHP_EOL);
+    echo (GREEN_TEXT . "Liste des Soldes de chaque utilisateur" . PHP_EOL);
+    echo (GREEN_TEXT . "======================================" . PHP_EOL);
 
     foreach ($balances as $name => $balance) {
         $roundedBalance = round($balance, 2);
-        echo(WHITE_TEXT . sprintf("- Solde de %s : %s%s€", $name, $roundedBalance < 0 ? RED_TEXT : GREEN_TEXT, $roundedBalance) . PHP_EOL);
+        echo (WHITE_TEXT . sprintf("- Solde de %s : %s%s€", $name, $roundedBalance < 0 ? RED_TEXT : GREEN_TEXT, $roundedBalance) . PHP_EOL);
     }
-
 } catch (\Throwable $exception) {
-    echo(RED_TEXT . "Certaines fonctionnalités semblent manquantes pour le bon fonctionnement de ce script" . PHP_EOL);
-    echo(RED_TEXT . "Message d'erreur : " . $exception->getMessage() . PHP_EOL);
+    echo (RED_TEXT . "Certaines fonctionnalités semblent manquantes pour le bon fonctionnement de ce script" . PHP_EOL);
+    echo (RED_TEXT . "Message d'erreur : " . $exception->getMessage() . PHP_EOL);
 }
