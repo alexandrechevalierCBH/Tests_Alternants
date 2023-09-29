@@ -3,14 +3,15 @@
 class User
 {
     private int $id;
-    private $firstName;
+    private string $firstname;
     private string $lastname;
+    private string $mailAddress;
 
     public function __construct(string $firstname, string $lastname, string $mailAddress)
     {
         $this->firstname    = $firstname;
         $this->lastname     = $lastname;
-        $this->mailAddress= $mailAddress;
+        $this->mailAddress = $mailAddress;
     }
 
     function getId(): int
@@ -18,17 +19,23 @@ class User
         return $this->id;
     }
 
-    function getFirstname(): int
+    function getFirstname(): string
     {
         return $this->firstname;
     }
 
-    function getLastname(){
+    function getLastname(): string
+    {
         return $this->lastname;
     }
 
-    function getMailAddress()
+    function getMailAddress(): string
     {
-        return $mailAddress;
+        return $this->mailAddress;
+    }
+
+    function getFullName(): string
+    {
+        return $this->firstname . ' ' . $this->lastname;
     }
 }

@@ -55,7 +55,35 @@ class FoodExpense
         return $this->participants;
     }
 
-    function get_type() {
+    function getType(): string
+    {
         return 'FOOD';
+    }
+
+    function getUnitaryShared(): float
+    {
+        return $this->amount / count($this->participants);
+    }
+
+    function getUserShare(User $user): float
+    {
+        // init what was paid and what is due
+        $due = 0;
+        $paid = 0;
+
+        // if the user is in the participants array, add the unitary share to what is due
+        foreach ($this->participants as $participant) {
+            if ($participant === $user) {
+                $due += $this->getUnitaryShared();
+            }
+        }
+
+        // if the user is the payer, add the amount to what was paid
+        if ($this->le_payeur === $user) {
+            $paid += $this->amount;
+        }
+
+        // the balance is what was paid - what is due
+        return $paid - $due;
     }
 }
